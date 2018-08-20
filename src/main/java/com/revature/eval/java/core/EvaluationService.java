@@ -1,6 +1,11 @@
 package com.revature.eval.java.core;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +36,23 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		
+		int length = phrase.length();
+		int i = 0;
+		int j = 1;
+		char[] acro = new char[10];
+		acro[0] = phrase.charAt(0);
+		while(i<length) {
+			if(phrase.charAt(i) == ' ' || phrase.charAt(i) == '-') {
+				acro[j] = phrase.charAt(i+1);
+				j++;
+				i++;
+			}
+			i++;
+		}
+		String done = new String(acro);
+		String reallyDone = done.toUpperCase();
+		return reallyDone;
 	}
 
 	/**
@@ -51,53 +72,59 @@ public class EvaluationService {
 		public Triangle() {
 			super();
 		}
-
 		public Triangle(double sideOne, double sideTwo, double sideThree) {
 			this();
 			this.sideOne = sideOne;
 			this.sideTwo = sideTwo;
 			this.sideThree = sideThree;
 		}
-
 		public double getSideOne() {
 			return sideOne;
 		}
-
 		public void setSideOne(double sideOne) {
 			this.sideOne = sideOne;
 		}
-
 		public double getSideTwo() {
 			return sideTwo;
 		}
-
 		public void setSideTwo(double sideTwo) {
 			this.sideTwo = sideTwo;
 		}
-
 		public double getSideThree() {
 			return sideThree;
 		}
-
 		public void setSideThree(double sideThree) {
 			this.sideThree = sideThree;
 		}
-
 		public boolean isEquilateral() {
 			// TODO Write an implementation for this method declaration
+			if(sideOne == sideTwo && sideOne == sideThree) {
+				return true;
+			}
+			else {
 			return false;
+			}		
 		}
-
 		public boolean isIsosceles() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			if((sideOne == sideTwo && sideOne !=sideThree) ||
+				(sideThree == sideTwo && sideOne !=sideThree) ||
+				(sideOne == sideThree && sideOne !=sideTwo)) {
+				return true;
+			}
+			else {
+				return false;
+			}	
 		}
-
 		public boolean isScalene() {
 			// TODO Write an implementation for this method declaration
+			
+			if((sideOne != sideTwo) && (sideOne != sideThree) && (sideTwo != sideThree)) {
+				return true;
+			}
+			else {
 			return false;
 		}
-
 	}
 
 	/**
@@ -117,7 +144,50 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		
+		int length = string.length();
+		int i = 0;
+		int total = 0;
+		String stringLow = string.toLowerCase();
+		char[] breakUp = stringLow.toCharArray();
+		
+		while(i<length) {
+			if(breakUp[i] == 'a' || breakUp[i] == 'e' || breakUp[i] == 'i'|| breakUp[i] == 'o'
+					|| breakUp[i] == 'u' || breakUp[i] == 'l'|| breakUp[i] == 'n'|| breakUp[i] == 'r'
+					|| breakUp[i] == 's' || breakUp[i] == 't'){
+				
+				total++;
+			}
+			else if(breakUp[i] == 'd'|| breakUp[i] == 'g'){
+				total = total + 2;
+			}
+			else if(breakUp[i] == 'b'|| breakUp[i] == 'c'|| breakUp[i] == 'm'|| breakUp[i] == 'p') {
+				total = total + 3;
+			}
+			else if(breakUp[i] == 'f'|| breakUp[i] == 'h'|| breakUp[i] == 'v'|| breakUp[i] == 'w'
+					|| breakUp[i] == 'y') {
+				total = total + 4;
+			}
+			else if(breakUp[i] == 'k') {
+				total = total + 5;
+			}
+			else if(breakUp[i] == 'j'|| breakUp[i] == 'x') {
+				total = total + 8;
+			
+			}
+			else if(breakUp[i] == 'q'|| breakUp[i] == 'z') {
+				total = total + 10;
+			}
+			else {
+				System.out.println("Error: None applicable Scrabble character.");
+				break;
+			}
+			
+			i++;
+		}
+		
+		
+		return total;
 	}
 
 	/**
@@ -153,7 +223,36 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		
+		List<Character> goodList = new ArrayList<Character>();
+		int length = string.length();
+		int i = 0;
+		char[] breakUp = string.toCharArray();
+		
+		while(i < length) {
+			if(breakUp[i] == '+' || breakUp[i] == '-' || breakUp[i] == '.'|| breakUp[i] == ' '
+					|| breakUp[i] == '('|| breakUp[i] == ')') {
+				i++;
+			}
+			else {
+				goodList.add(breakUp[i]);
+				i++;
+			}
+		}
+		
+			int size = goodList.size();	
+		if(size == 11 && goodList.get(0) == 1) {
+			goodList.remove(0);
+			}
+		
+		StringBuilder builder = new StringBuilder(goodList.size());
+		
+		for(Character ch: goodList) {
+			builder.append(ch);
+		}
+		String reallyDone;
+		reallyDone = builder.toString();
+		return reallyDone;
 	}
 
 	/**
@@ -167,6 +266,8 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
+		
+		
 		return null;
 	}
 
@@ -225,6 +326,8 @@ public class EvaluationService {
 		public void setSortedList(List<T> sortedList) {
 			this.sortedList = sortedList;
 		}
+		
+		int val = Integer.valueOf(String.valueOf(t));
 
 	}
 
@@ -247,8 +350,98 @@ public class EvaluationService {
 	 */
 	public String toPigLatin(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
-	}
+		String string = "uick fast run";
+		int i = 0;
+		List<Character> chList = new ArrayList<Character>();
+		List<Character> cut = new ArrayList<Character>();
+		List<Character> cutB = new ArrayList<Character>();
+		
+		for (char c : string.toCharArray()) {
+			  chList.add(c);
+			}
+	
+		
+		
+		for(int j =0 ; j<chList.size(); j++) {		
+			if(chList.get(j) == ' ') {
+				
+				cut = chList.subList(j+1, chList.size());
+				
+				for(int k = 0; k < cut.size(); k++) {
+					if(cut.get(k) == ' ') {
+						
+						cutB = cut.subList(k+1, cut.size());
+						System.out.println("cutB:" + cutB);
+						System.out.println("cut: " + cut);
+						
+						for (int m = 0; j < chList.size(); m++) {
+							  chList.remove(chList.size()-1);
+							  
+							  
+							  
+							}						
+					}	
+				}
+			}
+			
+		}
+		System.out.println("Print me NOW");
+		System.out.println(chList);
+		
+		if(chList.get(0) == 'a' || chList.get(0) == 'o' || chList.get(0) == 'u' || chList.get(0) == 'i' ||
+			chList.get(0) == 'e' || chList.get(0) == 'y' ) {
+			
+			chList.add('a');
+			chList.add('y');
+
+			System.out.println(chList);
+		}
+	
+	
+	
+		//System.out.println(chList);
+		//System.out.println(chListB);
+		//System.out.println(chListC);
+//		
+		//while(i<=0) {
+			
+		
+					
+					
+//					System.out.println(chList);
+//					System.out.println(length);
+//					System.out.println(letter);
+				
+			
+			
+//			else if(letter[0] == 'b' ||letter[i] == 'c' ||letter[i] == 'd' ||letter[i] == 'f' ||
+//				letter[0] == 'g' ||letter[0] == 'h' ||letter[i] == 's' ||letter[i] == 'j' ||
+//				letter[0] == 'k' ||letter[0] == 'l' ||letter[i] == 'm' ||letter[i] == 'n' ||
+//				letter[0] == 't' ||letter[0] == 'p' ||letter[i] == 'q' ||letter[i] == 'r' ||
+//				letter[0] == 'v' ||letter[0] == 'w' ||letter[i] == 'x' ||letter[i] == 'z') {
+//			
+//				chList.add(length+1, chList.get(0));
+//				i++;
+//			}
+//			else {
+//				i++;
+//			
+//			
+//			}
+//			
+//			StringBuilder builder = new StringBuilder(chList.size());
+//			
+//			for(Character ch: chList) {
+//				builder.append(ch);
+//			}
+//			String reallyDone;
+//			reallyDone = builder.toString();
+//			System.out.println(reallyDone);
+//		}
+//	}
+//}
+}
+	
 
 	/**
 	 * 9. An Armstrong number is a number that is the sum of its own digits each
@@ -267,7 +460,27 @@ public class EvaluationService {
 	 */
 	public boolean isArmstrongNumber(int input) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		  
+		int a = 0;
+		int b = 0;
+		int c = 0;
+	    int n = 153;
+	    b = n;  
+	    
+	    while(input > 0){  
+	    	a = input % 10;  
+	    	n = input / 10;  
+	    	c = c + (a*a*a);  
+	    }  
+	    
+	    if(b == c) {
+	    	return true;  
+	    }
+	    else {
+	    
+	    	return false;
+		}
+
 	}
 
 	/**
@@ -282,7 +495,31 @@ public class EvaluationService {
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		List<Long> primefactors = new ArrayList<Long>();
+		
+        long copyOfInput = l;
+
+ 
+
+        for (long i = 2; i <= copyOfInput; i++) {
+
+            if (copyOfInput % i == 0) {
+
+                primefactors.add(i); // prime factor
+
+                copyOfInput /= i;
+
+                i--;
+
+            }
+
+        }
+
+         
+        
+        return primefactors;
+		
+		
 	}
 
 	/**
@@ -434,7 +671,202 @@ public class EvaluationService {
 	 */
 	public boolean isPangram(String string) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		String string = "the quick brown fox jumps over the lazy dog";
+		int length = string.length();
+		char[] chList = string.toCharArray();
+		int count = 0;
+		boolean marka = false;
+		boolean markb = false;
+		boolean markc = false;
+		boolean markd = false;
+		boolean marke = false;
+		boolean markf = false;
+		boolean markg = false;
+		boolean markh = false;
+		boolean marki = false;
+		boolean markj = false;
+		boolean markk = false;
+		boolean markl = false;
+		boolean markm = false;
+		boolean markn = false;
+		boolean marko = false;
+		boolean markp = false;
+		boolean markq = false;
+		boolean markr = false;
+		boolean marks = false;
+		boolean markt = false;
+		boolean marku = false;
+		boolean markv = false;
+		boolean markw = false;
+		boolean markx = false;
+		boolean marky = false;
+		boolean markz = false;
+		
+		for(int i = 0; i< length; i++ ) {
+			if(chList[i] == 'a') {
+				if(marka = false) {
+				marka = true;
+				count = count+1; 
+			}
+			}
+			else if(chList[i] == 'b') {
+				if(marka = false) {
+				markb = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'c') {
+				if(markc = false) {
+				markc = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'd') {
+				if(markd = false) {
+				markd = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'e') {
+				if(marke = false) {
+				marke = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'f') {
+				if(markf = false) {
+				markf = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'g') {
+				if(markg = false) {
+				markg = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'h') {
+				if(markh = false) {
+				markh = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'i') {
+				if(marki = false) {
+				marki = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'j') {
+				if(markj = false) {
+				markj = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'k') {
+				if(markk = false) {
+				markk = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'l') {
+				if(markl = false) {
+				markl = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'm') {
+				if(markm = false) {
+				markm = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'n') {
+				if(markn = false) {
+				markn = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'o') {
+				if(marko = false) {
+				marko = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'p') {
+				if(markp = false) {
+				markp = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'q') {
+				if(markq = false) {
+				markq = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'r') {
+				if(markr = false) {
+				markr = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 's') {
+				if(marks = false) {
+				marks = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 't') {
+				if(markt = false) {
+				markt = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'u') {
+				if(marku = false) {
+				marku = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'v') {
+				if(markv = false) {
+				markv = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'w') {
+				if(markw = false) {
+				markw = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'x') {
+				if(markx = false) {
+				markx = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'y') {
+				if(marky = false) {
+				marky = true;
+				count = count+1;
+			}
+			}
+			else if(chList[i] == 'z') {
+				if(markz = false) {
+				markz = true;
+				count = count+1;
+			}
+			}	
+	}
+	if(count == 26) {
+		//return true;
+		System.out.println("is at pangram");
+	}
+	else {
+		System.out.println("nope");
+	}
 	}
 
 	/**
@@ -446,9 +878,15 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Temporal getGigasecondDate(Temporal given) {
-		// TODO Write an implementation for this method declaration
-		return null;
-	}
+        //In case,time not included
+        if(given instanceof LocalDate) {
+            LocalDateTime time = LocalDateTime.of((LocalDate) given, LocalTime.MIN);
+            return time.plus(Duration.ofSeconds(1000000000l));
+        }
+        //if time is included
+        LocalDateTime time = LocalDateTime.from(given);
+        return time.plus(Duration.ofSeconds(1000000000l));
+    }
 
 	/**
 	 * 18. Given a number, find the sum of all the unique multiples of particular
@@ -465,8 +903,136 @@ public class EvaluationService {
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		
+		int i = 150;
+		int[] set = new int[3];
+		set[0] = 5;
+		set[1] = 6; 
+		set[2] = 8;
+		int g = 0;
+		int f = 0;
+		int e = 0;
+		int max = 0;
+		int total = 0;
+		int tax = 0;
+		int fax = 0;
+		int length = set.length;
+		
+		ArrayList<Integer> aList = new ArrayList<Integer>();
+		ArrayList<Integer> bList = new ArrayList<Integer>();
+		ArrayList<Integer> cList = new ArrayList<Integer>();
+		
+		for(int t = 0; t < 3 ; t++) {			
+			if(t == 0) {				
+				while(max < i-set[0]) {
+					max = set[t] * g;
+					aList.add(max);
+					//System.out.println("a: " + aList.get(g));
+					g++;		
+				}
+			}
+			else if(t == 1) {
+				while(tax < i-set[1]) {
+					
+					tax = set[t] * f;
+					bList.add(tax);
+					//System.out.println("b: " + bList.get(f));
+					f++;
+					
+					}
+			}
+			else if(t == 2){
+				while(fax < i-set[2]) {
+					
+					fax = set[t] * e;
+					cList.add(fax);
+					//System.out.println("c: " + cList.get(e));
+					e++;
+					}
+			}	
+		}
+		System.out.println("HELP");
+		aList.addAll(bList);
+		aList.addAll(cList);
+		Collections.sort(aList);
+		
+		for(int h = 0; h < aList.size(); h++) {
+            for(int x = h; x < aList.size(); x++) {
+                if(aList.get(i).equals(aList.get(x))){
+                    aList.remove(x);
+                    x--;
+                }
+            }
+		}
+		
+		
+//		Collections.sort(aList);
+//		//System.out.println("HELP");
+//		for(int z = 0; z <= aList.size(); z++) {
+//			
+//			
+//			if(aList.get(z).equals(aList.get(z+1))) {
+//				//System.out.println("      "+ aList.get(z));
+//				aList.remove(z);
+//				if(aList.get(z) == aList.get(z+1)) {
+//					aList.remove(z);
+//				}
+				
+//				//System.out.println("thisWWW: " + aList.get(z));
+//			}
+//				//System.out.println("this: " + aList.get(z));
+//		}
+		if(aList.get(aList.size())== aList.get(aList.size()-1)) {
+			aList.remove(aList.size());
+		}
+		int sum =0;
+		for(int k : aList) {
+			sum+= k;
+		}
+		int v=0;
+		//System.out.println(sum);
+		int[] ret = new int[aList.size()];
+	    for (int p=0; p < ret.length; p++)
+	    {
+	        ret[p] = aList.get(p).intValue();
+	        v = v + ret[p];
+	        
+	    }
+	    
+	    
+	    System.out.println(v);
+		
+		
+		
+		//System.out.println("HELP");
+//		for(int y = 0; y < 100; y++) {
+//			if(aList.get(y)==bList.get(q)) {
+//				
+//				bList.remove(y);
+//			}
+//			if(cList.get(y)==bList.get(q)) {
+//				cList.remove(y);
+//			}
+//			
+//			for(int q = 0; q < 100; q++ ) {
+//				
+//			
+//				if(aList.get(y)==cList.get(0)) {
+//					cList.remove(y);	
+//				}
+//				if(bList.get(y)==c)
+//			
+//				//	System.out.println("b: " + bList.get(f));
+//				//System.out.println("a: " + aList.get(g));
+//				//System.out.println("c: " + cList.get(e));
+//			}
+		
+		//for()
+	
 	}
+
+}
+//}
 
 	/**
 	 * 19. Given a number determine whether or not it is valid per the Luhn formula.
@@ -538,7 +1104,11 @@ public class EvaluationService {
 	 */
 	public int solveWordProblem(String string) {
 		// TODO Write an implementation for this method declaration
+		
+		
+		
 		return 0;
 	}
 
 }
+

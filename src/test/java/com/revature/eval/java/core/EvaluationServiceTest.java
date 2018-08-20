@@ -159,7 +159,34 @@ public class EvaluationServiceTest {
 	@Test
 	public void cleansTheNumber() {
 		final String expectedNumber = "2234567890";
-		final String actualNumber = evaluationService.cleanPhoneNumber("(223) 456-7890");
+		final String actualNumber = evaluationService.cleanPhoneNumber("List<Character> goodList = new ArrayList<Character>();\r\n" + 
+				"		int length = string.length();\r\n" + 
+				"		int i = 0;\r\n" + 
+				"		char[] breakUp = string.toCharArray();\r\n" + 
+				"		\r\n" + 
+				"		while(i < length) {\r\n" + 
+				"			if(breakUp[i] == '+' || breakUp[i] == '-' || breakUp[i] == '.'|| breakUp[i] == ' '\r\n" + 
+				"					|| breakUp[i] == '('|| breakUp[i] == ')') {\r\n" + 
+				"				i++;\r\n" + 
+				"			}\r\n" + 
+				"			else {\r\n" + 
+				"				goodList.add(breakUp[i]);\r\n" + 
+				"				i++;\r\n" + 
+				"			}\r\n" + 
+				"		}\r\n" + 
+				"		\r\n" + 
+				"			int size = goodList.size();	\r\n" + 
+				"		if(size == 11 && goodList.get(0) == 1) {\r\n" + 
+				"			goodList.remove(0);\r\n" + 
+				"			}\r\n" + 
+				"		StringBuilder builder = new StringBuilder(goodList.size());\r\n" + 
+				"		\r\n" + 
+				"		for(Character ch: goodList) {\r\n" + 
+				"			builder.append(ch);\r\n" + 
+				"		}\r\n" + 
+				"		\r\n" + 
+				"		String reallyDone;\r\n" + 
+				"		reallyDone = builder.toString();");
 		assertEquals(expectedNumber, actualNumber);
 	}
 
